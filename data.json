@@ -1,0 +1,15 @@
+{
+  "categories": ["Todos", "Sorvetes", "Milk-shakes", "Sundaes"],
+  "materials": [
+    { "id": 1, "name": "Leite integral", "unit": "L", "pack": 1, "price": 5.8, "stock": 18, "min": 8, "category": "Laticínios" },
+    { "id": 2, "name": "Chocolate 50%", "unit": "kg", "pack": 1, "price": 42, "stock": 4.2, "min": 5, "category": "Ingredientes" },
+    { "id": 3, "name": "Morango", "unit": "kg", "pack": 1, "price": 18.5, "stock": 7, "min": 4, "category": "Frutas" },
+    { "id": 4, "name": "Copo 500 ml", "unit": "un", "pack": 100, "price": 48, "stock": 84, "min": 30, "category": "Embalagens" }
+  ],
+  "products": [
+    { "id": 1, "name": "Pistache cremoso", "category": "Sorvetes", "description": "Pistache torrado, leve e surpreendente.", "price": 18.9, "cost": 5.72, "tag": "Mais vendido", "color": "pistachio", "recipe": [{ "material": 1, "qty": 0.12 }, { "material": 2, "qty": 0.01 }] },
+    { "id": 2, "name": "Milk-shake chocolate", "category": "Milk-shakes", "description": "Chocolate intenso, do jeitinho que abraça.", "price": 16, "cost": 5.91, "tag": "Especial", "color": "chocolate", "recipe": [{ "material": 1, "qty": 0.15 }, { "material": 2, "qty": 0.03 }, { "material": 4, "qty": 1 }] },
+    { "id": 3, "name": "Sundae morango", "category": "Sundaes", "description": "Morango fresco, calda e crocância.", "price": 15.5, "cost": 4.1, "tag": "Novidade", "color": "strawberry", "recipe": [{ "material": 1, "qty": 0.1 }, { "material": 3, "qty": 0.08 }, { "material": 4, "qty": 1 }] },
+    { "id": 4, "name": "Manga com limão", "category": "Sorvetes", "description": "Frutado, solar e refrescante.", "price": 14.9, "cost": 3.2, "tag": "Leve", "color": "mango", "recipe": [{ "material": 3, "qty": 0.06 }] }
+  ]
+}
