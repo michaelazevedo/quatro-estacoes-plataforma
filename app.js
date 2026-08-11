@@ -285,6 +285,22 @@ function cartTotal() {
   return cartSubtotal() + (deliveryQuote?.fee || 0);
 }
 
+function openWhatsAppOrder(message) {
+  const encoded = encodeURIComponent(message);
+  const appUrl = `whatsapp://send?phone=${storeWhatsApp}&text=${encoded}`;
+  const webUrl = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+    ? `https://wa.me/${storeWhatsApp}?text=${encoded}`
+    : `https://web.whatsapp.com/send?phone=${storeWhatsApp}&text=${encoded}`;
+  let openedApp = false;
+  const markOpened = () => { openedApp = true; };
+  document.addEventListener("visibilitychange", markOpened, { once: true });
+  window.location.href = appUrl;
+  setTimeout(() => {
+    document.removeEventListener("visibilitychange", markOpened);
+    if (!openedApp) window.location.href = webUrl;
+  }, 1200);
+}
+
 async function geocodeAddress(address) {
   const city = deliveryCity();
   const street = streetOnly(address);
@@ -416,7 +432,12 @@ function openOrderModal() {
     }).filter(Boolean).join("\n");
     const freight = deliveryQuote ? `${money(deliveryQuote.fee)} (${deliveryQuote.km.toFixed(1).replace(".", ",")} km)` : "A confirmar";
     const message = `*Pedido Quatro Estacoes*\n\n${items}\n\n*Subtotal:* ${money(cartSubtotal())}\n*Frete:* ${freight}\n*Total:* ${money(cartTotal())}\n\n*Cliente:* ${f.get("customer")}\n*Telefone:* ${f.get("phone")}\n*CEP:* ${formatZip(f.get("zipcode")) || "Nao informado"}\n*Endereco:* ${address}\n*Complemento/numero:* ${complement || "Nao informado"}\n*Pagamento:* ${f.get("payment")}\n*Observacao:* ${f.get("notes") || "Nenhuma"}\n\n*Link da entrega no Maps:*\n${maps}`;
-    window.open(`https://wa.me/${storeWhatsApp}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+    cart = [];
+    deliveryQuote = null;
+    updateCartButton();
+    closeModal();
+    toast("Pedido pronto no WhatsApp. Carrinho esvaziado.");
+    openWhatsAppOrder(message);
   };
 }
 
